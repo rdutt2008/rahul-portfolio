@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Breast Cancer Detection via CNN — Rahul Dutt</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0a0a0f; --surface: #111118; --border: #1e1e2e;
+    --accent: #00ffcc; --accent2: #ff4d6d; --accent3: #6c63ff;
+    --text: #e8e8f0; --muted: #6b6b80;
+    --mono: 'Space Mono', monospace; --display: 'Syne', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: var(--mono); overflow-x: hidden; cursor: none; }
+  .cursor { width:12px;height:12px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference; }
+  .cursor-ring { width:36px;height:36px;border:1px solid var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-12px,-12px);opacity:0.5;transition:all 0.15s; }
+  body::after { content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,255,204,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,204,0.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0; }
+  nav { position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:rgba(10,10,15,0.85);backdrop-filter:blur(12px); }
+  .nav-logo { font-family:var(--display);font-weight:800;font-size:1.1rem;color:var(--accent);text-decoration:none; }
+  .nav-back { font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;cursor:none; }
+  .nav-back:hover { color:var(--accent); }
+  .project-hero { position:relative;z-index:1;padding:160px 48px 80px;max-width:900px;margin:0 auto; }
+  .back-tag { font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;display:flex;align-items:center;gap:12px; }
+  .back-tag a { color:var(--muted);text-decoration:none;transition:color 0.2s;cursor:none; }
+  .back-tag a:hover { color:var(--accent); }
+  .project-index { font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:16px; }
+  h1 { font-family:var(--display);font-size:clamp(2.2rem,5vw,4rem);font-weight:800;letter-spacing:-0.03em;line-height:1.05;margin-bottom:24px; }
+  .project-lead { font-size:0.9rem;color:var(--muted);line-height:1.9;max-width:680px;margin-bottom:48px; }
+  .meta-row { display:flex;flex-wrap:wrap;gap:32px;margin-bottom:56px;padding-bottom:48px;border-bottom:1px solid var(--border); }
+  .meta-item { display:flex;flex-direction:column;gap:6px; }
+  .meta-label { font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted); }
+  .meta-value { font-size:0.82rem;color:var(--text); }
+  .content-body { position:relative;z-index:1;max-width:900px;margin:0 auto;padding:0 48px 120px; }
+  .section { margin-bottom:56px; }
+  .section h2 { font-family:var(--display);font-size:1.4rem;font-weight:700;margin-bottom:20px;color:var(--text); }
+  .section p { font-size:0.82rem;color:var(--muted);line-height:1.9;margin-bottom:16px; }
+  .section ul { list-style:none;display:flex;flex-direction:column;gap:12px; }
+  .section ul li { font-size:0.82rem;color:var(--muted);line-height:1.7;padding-left:20px;position:relative; }
+  .section ul li::before { content:'→';position:absolute;left:0;color:var(--accent);font-size:0.7rem; }
+  .stack-chips { display:flex;flex-wrap:wrap;gap:8px;margin-top:16px; }
+  .chip { font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:8px 16px;border:1px solid var(--accent);color:var(--accent);background:rgba(0,255,204,0.05); }
+  .chip.muted { border-color:var(--border);color:var(--muted);background:transparent; }
+  .highlight-box { background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);padding:28px 32px;margin:32px 0; }
+  .highlight-box .hl-label { font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:10px; }
+  .highlight-box p { margin:0; }
+  .nav-projects { display:flex;gap:2px;padding:48px;max-width:900px;margin:0 auto;border-top:1px solid var(--border);position:relative;z-index:1; }
+  .nav-proj-btn { flex:1;padding:24px;background:var(--surface);border:1px solid var(--border);text-decoration:none;color:var(--muted);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;transition:all 0.2s;cursor:none;display:flex;flex-direction:column;gap:6px; }
+  .nav-proj-btn:hover { border-color:var(--accent);color:var(--accent);transform:translate(-2px,-2px);box-shadow:2px 2px 0 var(--accent); }
+  .nav-proj-btn span { font-family:var(--display);font-size:0.85rem;font-weight:700;color:var(--text); }
+</style>
+
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<nav>
+  <a href="index.html" class="nav-logo">RD.</a>
+  <a href="index.html" class="nav-back">← All Projects</a>
+</nav>
+<div class="project-hero">
+  <div class="back-tag"><a href="index.html">← Back to Portfolio</a></div>
+  <div class="project-index">06 / Independent Project</div>
+  <h1>Breast Cancer Detection via CNN</h1>
+  <p class="project-lead">A convolutional neural network trained on medical imaging data to detect breast cancer with 88% accuracy — demonstrating the potential of deep learning in early-stage oncology screening.</p>
+  <div class="meta-row"><div class="meta-item"><div class="meta-label">Type</div><div class="meta-value">Independent Project</div></div><div class="meta-item"><div class="meta-label">Stack</div><div class="meta-value">Python, TensorFlow</div></div><div class="meta-item"><div class="meta-label">Accuracy</div><div class="meta-value">88% on test set</div></div><div class="meta-item"><div class="meta-label">Data</div><div class="meta-value">Kaggle</div></div></div>
+</div>
+<div class="content-body">
+  <div class="section"><h2>Overview</h2><p>Breast cancer is one of the most common cancers globally. Early detection dramatically improves survival rates — but radiological screening is limited by specialist availability. This project explores whether a CNN can provide reliable automated detection from medical imaging data.</p></div><div class="section"><h2>Approach</h2><ul><li>Dataset: labeled breast cancer imaging dataset sourced from Kaggle</li><li>Preprocessing: normalization, augmentation (flips, rotations) to improve generalization</li><li>Architecture: custom CNN with convolutional blocks, max pooling, and dense classification head</li><li>Binary output: malignant vs. benign prediction</li><li>88% test accuracy with balanced evaluation across both classes</li></ul></div><div class="section"><h2>Result</h2><div class="highlight-box"><div class="hl-label">Model Performance</div><p>88% accuracy on the held-out test set, with balanced performance across both malignant and benign classes — demonstrating the model generalizes rather than overfitting to class imbalance.</p></div></div><div class="section"><h2>Tech Stack</h2><div class="stack-chips"><span class="chip">TensorFlow</span><span class="chip">CNN</span><span class="chip">Python</span><span class="chip muted">Medical Imaging</span><span class="chip muted">Kaggle Dataset</span></div></div>
+</div>
+<div class="nav-projects">
+  <a href="project-image-sr.html" class="nav-proj-btn">← Previous<span>Image Super-Resolution</span></a>
+  <a href="project-cereal-milk.html" class="nav-proj-btn" style="text-align:right">Next →<span>Cereal Milk Initiative</span></a>
+</div>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX - 6 + 'px';
+    cursor.style.top = e.clientY - 6 + 'px';
+    ring.style.left = e.clientX - 18 + 'px';
+    ring.style.top = e.clientY - 18 + 'px';
+  });
+  document.querySelectorAll('a,button').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform='scale(2)'; });
+    el.addEventListener('mouseleave', () => { cursor.style.transform='scale(1)'; });
+  });
+</script>
+
+</body>
+</html>

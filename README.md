@@ -19,7 +19,7 @@ I'm a student specializing in **Computer Science**, **Applied AI**, and **Machin
 
 | Project | Description | Stack |
 |---|---|---|
-| [AI Collaborative Browser](https://rdutt2008.github.io/project-ai-browser.html) | AI-powered browser with group research & URL scoring | PyQt5, Gemini API |
+| [AI Collaborative Browser](./project-ai-browser.html) | AI-powered browser with group research & URL scoring | PyQt5, Gemini API |
 | [DNA Sequence Detection](./project-dna.html) | Detects start/stop codons in DNA strands using AI | Python, TensorFlow, NumPy |
 | [Peptide Interaction Simulation](./project-peptide.html) | Simulates molecular interactions via thermodynamic values | NumPy, Matplotlib |
 | [Diabetic Retinopathy Detection](./project-retinopathy.html) | CNN model detecting DR via retinal blood vessel annotation | TensorFlow, NumPy, Pandas |

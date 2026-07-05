@@ -19,13 +19,13 @@ I'm a student specializing in **Computer Science**, **Applied AI**, and **Machin
 
 | Project | Description | Stack |
 |---|---|---|
-| [AI Collaborative Browser](./projects/ai-browser) | AI-powered browser with group research & URL scoring | PyQt5, Gemini API |
-| [DNA Sequence Detection](./projects/dna-sequence-detection) | Detects start/stop codons in DNA strands using AI | Python, TensorFlow, NumPy |
-| [Peptide Interaction Simulation](./projects/peptide-simulation) | Simulates molecular interactions via thermodynamic values | NumPy, Matplotlib |
-| [Diabetic Retinopathy Detection](./projects/diabetic-retinopathy) | CNN model detecting DR via retinal blood vessel annotation | TensorFlow, NumPy, Pandas |
-| [Breast Cancer CNN](./projects/breast-cancer-cnn) | Image-based breast cancer prediction (88% accuracy) | Python, TensorFlow |
-| [Image Super Resolution](./projects/image-super-resolution) | Facial image sharpening via CNN + Django web UI | Python, Django, TensorFlow |
-| [Cereal Milk Initiative](./projects/cereal-milk-initiative) | STEM community learning program for K-8 students | Education / Outreach |
+| [AI Collaborative Browser](./project-ai-browser.html) | AI-powered browser with group research & URL scoring | PyQt5, Gemini API |
+| [DNA Sequence Detection](./project-dna.html) | Detects start/stop codons in DNA strands using AI | Python, TensorFlow, NumPy |
+| [Peptide Interaction Simulation](./project-peptide.html) | Simulates molecular interactions via thermodynamic values | NumPy, Matplotlib |
+| [Diabetic Retinopathy Detection](./project-retinopathy.html) | CNN model detecting DR via retinal blood vessel annotation | TensorFlow, NumPy, Pandas |
+| [Breast Cancer CNN](./project-cancer.html) | Image-based breast cancer prediction (88% accuracy) | Python, TensorFlow |
+| [Image Super Resolution](./project-image-sr.html) | Facial image sharpening via CNN + Django web UI | Python, Django, TensorFlow |
+| [Cereal Milk Initiative](./project-cereal-milk.html) | STEM community learning program for K-8 students | Education / Outreach |
 
 ---
 
